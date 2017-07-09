@@ -173,7 +173,34 @@ build.panel <- function(datadir=NULL,fam.vars,ind.vars=NULL,wealth.vars=NULL,SAS
 				cat('found ',paste0("FAM" , family[ i , 'year' ], "ER.rda"), 'already downloaded \n')
 			}
 		}
+wealth.vars
+is.data.frame(wealth.vars)
+		
+		if (is.data.frame(wealth.vars)){
+			# if any of 1984, 1989, 1994, 1999, 2001, 2003, 2005, 2007 in years, also download the associated wealth supplement
+			wlth = data.frame(year=c(1984, 1989, 1994, 1999, 2001, 2003, 2005, 2007),file=c(1147,1148,1149,1150,1130,1131,1133,1140))
+			if (verbose){
+				cat("years: \n")
+				print(years)
+				cat("wealth.vars$year: \n")
+				print(wealth.vars$year)
+				cat("wlth: \n")
+				print(wlth)
+			}
+			wlth = wlth[wealth.vars$year %in% years, ]
 
+			wlth.down <- rep(FALSE,nrow(wlth))
+			if (length(wlth.down) >0){
+				for ( i in 1:nrow( wlth )) {
+					if ((paste0("WEALTH" , wlth[ i , 'year' ], "ER.rda") %in% lf)) {
+						wlth.down[i] <- TRUE
+						cat('found ',paste0("WEALTH" , wlth[ i , 'year' ], "ER.rda"), 'already downloaded \n')
+					} else {
+						cat('will download as ',paste0("WEALTH" , wlth[ i , 'year' ], "ER.rda"), '\n')
+					}
+				}
+			}
+		}
 
 
 
