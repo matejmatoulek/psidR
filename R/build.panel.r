@@ -173,8 +173,6 @@ build.panel <- function(datadir=NULL,fam.vars,ind.vars=NULL,wealth.vars=NULL,SAS
 				cat('found ',paste0("FAM" , family[ i , 'year' ], "ER.rda"), 'already downloaded \n')
 			}
 		}
-warning(wealth.vars)
-warning(is.data.frame(wealth.vars))
 		
 		if (is.data.frame(wealth.vars)){
 			# if any of 1984, 1989, 1994, 1999, 2001, 2003, 2005, 2007 in years, also download the associated wealth supplement
@@ -210,7 +208,7 @@ warning(is.data.frame(wealth.vars))
 			#download latest individual index
 			ind.down = TRUE
 		}
-		if (all(all(families.down),ind.down,all(wlth.down))) {
+		if (all(all(families.down),ind.down)) {
 			cat("everything already downloaded. Build dataset now.\n")
 		} else {
 			cat("Will download missing datasets now.\n")
